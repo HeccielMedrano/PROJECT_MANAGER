@@ -1,13 +1,23 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const log4js = require('log4js');
+const logg = log4js.getLogger("app")
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+logg.level = "info";
 
-var app = express();
+logg.debug("Iniciando la app en modo de pruebas.");
+logg.info("Usuario ha iniciado sesion");
+logg.warn("Falta el archivo config de la app");
+logg.error("No se pudo ejecutar la accion");
+logg.fatal("No se pudo iniciar la app.")
+
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,7 +38,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
