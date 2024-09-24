@@ -29,6 +29,23 @@ Usa el siguiente comando para clonar el repo son ssh:
 git clone git@gitlab.com:a358193/manejador-proyectos.git
 ```
 
+### Wireframes 
+
+Para mayor comprension de la estructura basado en los requerimientos especificados en el documento anexado a la asignacion de este proyecto, aqui se muestran los debidos wireframes:
+
+![Login](./WIREFRAMES/Login.jpg)
+
+![PantallaInicial](./WIREFRAMES/PantallaInicial.jpg)
+
+![PantallaEliminar](./WIREFRAMES/PantallaEliminar.jpg)
+
+![NuevoProyecto](./WIREFRAMES/NuevoProyecto.jpg)
+
+![NuevoMiembro](./WIREFRAMES/NuevoMiembro.jpg)
+
+
 ## Autores
 
 * **Emiliano Rivera     358193**
+
+* **Erick Nevarez     357664**
