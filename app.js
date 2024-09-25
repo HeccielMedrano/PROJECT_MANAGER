@@ -16,6 +16,16 @@ logg.fatal("No se pudo iniciar la app.")
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const projectsRouter = require('./routes/projects');
+const membersRouter = require('./routes/members');
+const skillsRouter = require('./routes/skills');
+const usersHistoryRouter = require('./routes/usersHistory');
+const productBacklogsRouter = require('./routes/productBacklogs');
+const releaseBacklogsRouter = require('./routes/releaseBacklogs');
+const sprintBacklogsRouter = require('./routes/sprintBacklogs');
+const boardsRouter = require('./routes/boards');
+const sprintsRouter = require('./routes/sprints');
+const burndownChartsRouter = require('./routes/burndownCharts');
 
 const app = express();
 
@@ -31,6 +41,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/projects', projectsRouter);
+app.use('/members', membersRouter);
+app.use('/skills', skillsRouter);
+app.use('/usersHistory', usersHistoryRouter);
+app.use('/productBacklogs', productBacklogsRouter);
+app.use('/releaseBacklogs', releaseBacklogsRouter);
+app.use('/sprintBacklogs', sprintBacklogsRouter);
+app.use('/boards', boardsRouter);
+app.use('/sprints', sprintsRouter);
+app.use('/burndownCharts', burndownChartsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

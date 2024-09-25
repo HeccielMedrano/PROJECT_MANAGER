@@ -1,23 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/users');
+const controller = require('../controller/productBacklogs');
 
-/* POST create user. */
+/* POST create productBacklog. */
 router.post('/', controller.create);
 
-/* GET users listing. */
+/* GET productBacklogs listing. */
 router.get('/', controller.list);
 
-/* GET user by id. */
+/* GET productBacklog by id. */
 router.get('/:id', controller.index);
 
-/* PUT replace user by id. */
+/* PUT replace productBacklog by id. */
 router.put('/:id', controller.replace);
 
-/* PATCH update user by id. */
+/* PATCH update productBacklog by id. */
 router.patch('/:id', controller.update);
 
-/* DELETE user by id. */
+/* DELETE productBacklog by id. */
 router.delete('/:id', controller.destroy);
 
 module.exports = router;

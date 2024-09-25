@@ -1,23 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/users');
+const controller = require('../controller/boards');
 
-/* POST create user. */
+/* POST create board. */
 router.post('/', controller.create);
 
-/* GET users listing. */
+/* GET boards listing. */
 router.get('/', controller.list);
 
-/* GET user by id. */
+/* GET board by id. */
 router.get('/:id', controller.index);
 
-/* PUT replace user by id. */
+/* PUT replace board by id. */
 router.put('/:id', controller.replace);
 
-/* PATCH update user by id. */
+/* PATCH update board by id. */
 router.patch('/:id', controller.update);
 
-/* DELETE user by id. */
+/* DELETE board by id. */
 router.delete('/:id', controller.destroy);
 
 module.exports = router;

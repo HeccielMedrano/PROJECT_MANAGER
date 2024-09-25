@@ -1,23 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/users');
+const controller = require('../controller/sprints');
 
-/* POST create user. */
+/* POST create sprint. */
 router.post('/', controller.create);
 
-/* GET users listing. */
+/* GET sprints listing. */
 router.get('/', controller.list);
 
-/* GET user by id. */
+/* GET sprint by id. */
 router.get('/:id', controller.index);
 
-/* PUT replace user by id. */
+/* PUT replace sprint by id. */
 router.put('/:id', controller.replace);
 
-/* PATCH update user by id. */
+/* PATCH update sprint by id. */
 router.patch('/:id', controller.update);
 
-/* DELETE user by id. */
+/* DELETE sprint by id. */
 router.delete('/:id', controller.destroy);
 
 module.exports = router;
