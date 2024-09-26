@@ -33,7 +33,7 @@ git clone git@gitlab.com:a358193/manejador-proyectos.git
 
 #### Mediante Docker
 
-El proyecto se encuentra disponible (a través de Dockerhub)[https://hub.docker.com/r/hecmeduach/administrador-de-proyectos]
+El proyecto se encuentra disponible [a través de Dockerhub](https://hub.docker.com/r/hecmeduach/administrador-de-proyectos)
 
 El comando para su instalación en Docker es:
 ```
