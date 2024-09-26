@@ -57,3 +57,5 @@ De igual forma proporcionamos el diagrama de clases de la aplicación.
 * **Erick Nevarez     357664**
 
 * **Gerardo Jurado  273880**  
+
+* **Héctor Medrano      361345**
