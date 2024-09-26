@@ -21,12 +21,23 @@ Para testear el proyecto puedes usar el siguiente comando
 npm start
 ```
 
-### Instalando 
+### Instalación
 
-Usa el siguiente comando para clonar el repo son ssh:
+#### Mediante SSH
+
+Usa el siguiente comando para clonar el repo con ssh:
 
 ```
 git clone git@gitlab.com:a358193/manejador-proyectos.git
+```
+
+#### Mediante Docker
+
+El proyecto se encuentra disponible (a través de Dockerhub)[https://hub.docker.com/r/hecmeduach/administrador-de-proyectos]
+
+El comando para su instalación en Docker es:
+```
+docker pull hecmeduach/administrador-de-proyectos
 ```
 
 ### Wireframes 
