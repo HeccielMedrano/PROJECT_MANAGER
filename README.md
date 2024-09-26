@@ -31,17 +31,23 @@ git clone git@gitlab.com:a358193/manejador-proyectos.git
 
 ### Wireframes 
 
-Para mayor comprension de la estructura basado en los requerimientos especificados en el documento anexado a la asignacion de este proyecto, aqui se muestran los debidos wireframes:
+Para mayor comprensión de la estructura basado en los requerimientos especificados en el documento anexado a la asignación de este proyecto, aquí se muestran los debidos wireframes:
 
-![Login](./WIREFRAMES/Login.jpg)
+![Login](./public/resources/WIREFRAMES/Login.jpgp)
 
-![PantallaInicial](./WIREFRAMES/PantallaInicial.jpg)
+![PantallaInicial](./public/resources/WIREFRAMES/PantallaInicial.jpg)
 
-![PantallaEliminar](./WIREFRAMES/PantallaEliminar.jpg)
+![PantallaEliminar](./public/resources/WIREFRAMES/PantallaEliminar.jpg)
 
-![NuevoProyecto](./WIREFRAMES/NuevoProyecto.jpg)
+![NuevoProyecto](./public/resources/WIREFRAMES/NuevoProyecto.jpg)
 
-![NuevoMiembro](./WIREFRAMES/NuevoMiembro.jpg)
+![NuevoMiembro](./public/resources/WIREFRAMES/NuevoMiembro.jpg)
+
+### Diagrama de clases
+
+De igual forma proporcionamos el diagrama de clases de la aplicación.
+
+![Diagrama](./public/resources/Diagrama%20de%20clases.jpg)
 
 
 ## Autores
@@ -49,3 +55,5 @@ Para mayor comprension de la estructura basado en los requerimientos especificad
 * **Emiliano Rivera     358193**
 
 * **Erick Nevarez     357664**
+
+* **Gerardo Jurado  273880**  
