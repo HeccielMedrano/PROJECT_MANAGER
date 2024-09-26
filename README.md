@@ -60,6 +60,12 @@ De igual forma proporcionamos el diagrama de clases de la aplicación.
 
 ![Diagrama](./public/resources/Diagrama%20de%20clases.jpg)
 
+### Diagrama de Interacción
+
+Finalmente, se proporciona el diagrama de interacción correspondiente.
+
+![Diagrama2](./public/resources/diagrama_secuencia.png)
+
 
 ## Autores
 
