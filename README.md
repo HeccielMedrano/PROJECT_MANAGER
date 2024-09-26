@@ -44,7 +44,7 @@ docker pull hecmeduach/administrador-de-proyectos
 
 Para mayor comprensión de la estructura basado en los requerimientos especificados en el documento anexado a la asignación de este proyecto, aquí se muestran los debidos wireframes:
 
-![Login](./public/resources/WIREFRAMES/Login.jpgp)
+![Login](./public/resources/WIREFRAMES/Login.jpg)
 
 ![PantallaInicial](./public/resources/WIREFRAMES/PantallaInicial.jpg)
 
