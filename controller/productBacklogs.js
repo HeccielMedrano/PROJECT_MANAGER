@@ -1,27 +1,67 @@
-const express = require('express')
+const express = require('express');
+const ProductBacklog = require('../models/productBacklog');
 
 function create(req, res, next) {
-    res.send(`POST => /productBacklogs/ => ${req.body.name}`);
+    const stories = req.body.stories;
+
+    let productBacklog = new ProductBacklog({
+        _stories: stories
+    });
+
+    productBacklog.save().then(obj => res.status(200).json({
+        msg: "ProductBacklog creado correctamente",
+        obj: obj
+    })).catch(ex => res.status(500).json({
+        msg: "No se pudo almacenar el ProductBacklog",
+        obj: ex
+    }));
 }
 
 function list(req, res, next) {
-    res.send(`GET => /productBacklogs/`);
+    let page = req.params.page ? req.params.page : 1;
+    const options = {
+        page: page,
+        limit: 5
+    };
+    ProductBacklog.paginate({}, options).then(objs => res.status(200).json({
+        msg: "Lista de ProductBacklogs",
+        obj: objs
+    })).catch(ex => res.status(500).json({
+        msg: "No se pudo consultar la lista de ProductBacklogs",
+        obj: ex
+    }));
 }
 
 function index(req, res, next) {
-    res.send(`GET => /productBacklogs/${req.params.id}`);
+    const id = req.params.id;
+    ProductBacklog.findOne({"_id": id}).then(obj => res.status(200).json({
+        msg: `ProductBacklog con el id ${id}`,
+        obj: obj
+    }))
+    .catch(ex => res.status(500).json({
+        msg: "No se pudo consultar el ProductBacklog",
+        obj: ex
+    }));
 }
 
 function replace(req, res, next) {
-    res.send(`PUT => /productBacklogs/:id`);
+    
 }
 
 function update(req, res, next) {
-    res.send(`PATCH => /productBacklogs/:id`);
+    
 }
 
 function destroy(req, res, next) {
-    res.send(`DELETE => /productBacklogs/:id`);
+    const id = req.params.id;
+    ProductBacklog.findOneAndDelete({"_id": id}).then(obj => res.status(200).json({
+        msg: "ProductBacklog eliminado correctamente",
+        obj: obj
+    }))
+    .catch(ex => res.status(500).json({
+        msg: "No se pudo consultar el ProductBacklog",
+        obj: ex
+    }));
 }
 
-module.exports = {create, list, index, replace, update, destroy}
+module.exports = {create, list, index, replace, update, destroy};
