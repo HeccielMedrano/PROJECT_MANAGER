@@ -57,11 +57,56 @@ function index(req, res, next) {
 }
 
 function replace(req, res, next) {
+    const id = req.params.id;
+    let name = req.body.name ? req.body.name: "";
+    let requestDate = req.body.requestDate ? req.body.requestDate: "";
+    let startDate = req.body.startDate ? req.body.startDate: "";
+    let description = req.body.description ? req.body.description: "";
+    let projectManager = req.body.projectManager ? req.body.projectManager: "";
+    let productOwner = req.body.productOwner ? req.body.productOwner: "";
+    let developmentTeam = req.body.developmentTeam ? req.body.developmentTeam: "";
 
+    let project = new Object({
+        _name: name, _requestDate: requestDate, _startDate: startDate, _description: description, _projectManager: projectManager, _productOwner: productOwner, _developmentTeam: developmentTeam
+    });
+
+    Project.findOneAndUpdate({"_id":id},project)
+        .then(obj => res.status(200).json({
+            msg: "Se reemplazo el proyecto",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo reemplazar el proyecto",
+            obj: ex
+        }));
 }
 
 function update(req, res, next) {
-    
+    const id = req.params.id;
+    let name = req.body.name;
+    let requestDate = req.body.requestDate;
+    let startDate = req.body.startDate;
+    let description = req.body.description ;
+    let projectManager = req.body.projectManager;
+    let productOwner = req.body.productOwner;
+    let developmentTeam = req.body.developmentTeam;
+
+    let project = new Object();
+    if(name) project._name = name;
+    if(requestDate) project._requestDate = requestDate;
+    if(startDate) project._startDate = startDate;
+    if(description) project._description = description;
+    if(projectManager) project._projectManager = projectManager;
+    if(productOwner) project._productOwner = productOwner;
+    if(developmentTeam) project._developmentTeam = developmentTeam;
+
+    Project.findOneAndUpdate({"_id":id},project)
+    .then(obj => res.status(200).json({
+        msg: "Se actualizo el proyecto",
+        obj: obj
+    })).catch(ex => res.status(500).json({
+        msg: "No se pudo actualizar el proyecto",
+        obj: ex
+    }));
 }
 
 function destroy(req, res, next) {

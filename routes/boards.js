@@ -6,7 +6,7 @@ const controller = require('../controller/boards');
 router.post('/', controller.create);
 
 /* GET boards listing. */
-router.get('/', controller.list);
+router.get('/:page?', controller.list);
 
 /* GET board by id. */
 router.get('/:id', controller.index);

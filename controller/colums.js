@@ -47,11 +47,41 @@ function index(req, res, next) {
 }
 
 function replace(req, res, next) {
-    
+    const id = req.params.id;
+    let name = req.body.name ? req.body.name: "";
+    let board = req.body.board ? req.body.board: "";
+
+    let column = new Object({
+        _name: name, _board: board
+    });
+
+    Column.findOneAndUpdate({"_id":id},column)
+        .then(obj => res.status(200).json({
+            msg: "Se reemplazo la columna",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo reemplazar la columna",
+            obj: ex
+        }));
 }
 
 function update(req, res, next) {
-    
+    const id = req.params.id;
+    let name = req.body.name;
+    let board = req.body.board;
+
+    let column = new Object();
+    if(name) column._name = name;
+    if(board) column._board = board;
+
+    Column.findOneAndUpdate({"_id":id},column)
+        .then(obj => res.status(200).json({
+            msg: "Se actualizo la columna",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo actualizar la columna",
+            obj: ex
+        }));
 }
 
 function destroy(req, res, next) {

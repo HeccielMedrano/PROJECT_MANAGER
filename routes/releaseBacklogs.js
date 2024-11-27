@@ -6,7 +6,7 @@ const controller = require('../controller/releaseBacklogs');
 router.post('/', controller.create);
 
 /* GET releaseBacklogs listing. */
-router.get('/', controller.list);
+router.get('/:page?', controller.list);
 
 /* GET releaseBacklog by id. */
 router.get('/:id', controller.index);

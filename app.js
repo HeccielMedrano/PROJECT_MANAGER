@@ -4,8 +4,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-/*const log4js = require('log4js');
-const logg = log4js.getLogger("app")
+const log4js = require('log4js');
+const logg = log4js.getLogger("app");
+const config = require('config');
+const i18n = require('i18n');
+const {expressjwt} = require('express-jwt');
 
 logg.level = "info";
 
@@ -13,8 +16,9 @@ logg.debug("Iniciando la app en modo de pruebas.");
 logg.info("Usuario ha iniciado sesion");
 logg.warn("Falta el archivo config de la app");
 logg.error("No se pudo ejecutar la accion");
-logg.fatal("No se pudo iniciar la app.")*/
+logg.fatal("No se pudo iniciar la app.");
 
+const jwtKey = config.get("secret.key");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
@@ -22,7 +26,6 @@ const productBacklogsRouter = require('./routes/productBacklogs');
 const releaseBacklogsRouter = require('./routes/releaseBacklogs');
 const sprintBacklogsRouter = require('./routes/sprintBacklogs');
 const boardsRouter = require('./routes/boards');
-
 
 const app = express();
 
@@ -38,6 +41,11 @@ db.on('error', ()=>{
   console.log("No se ha podido establecer la conexion a la base de datos");
 });
 
+i18n.configure({
+  locales:['es','en'],
+  cookie: 'language',
+  directory: `${__dirname}/locales`
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,6 +56,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(i18n.init);
+//app.use(expressjwt({secret:jwtKey, algorithms:['HS256']}).unless({path:["/login"]}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

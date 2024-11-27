@@ -45,11 +45,38 @@ function index(req, res, next) {
 }
 
 function replace(req, res, next) {
-    
+    const id = req.params.id;
+    let stories = req.body.stories ? req.body.stories: "";
+
+    let productBacklog = new Object({
+        _stories: stories
+    });
+
+    ProductBacklog.findOneAndUpdate({"_id":id},productBacklog)
+        .then(obj => res.status(200).json({
+            msg: "Se reemplazo el ProductBacklog",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo reemplazar el ProductBacklog",
+            obj: ex
+        }));
 }
 
 function update(req, res, next) {
-    
+    const id = req.params.id;
+    let stories = req.body.stories;
+
+    let productBacklog = new Object();
+    if(stories) productBacklog._stories = stories;
+
+    ProductBacklog.findOneAndUpdate({"_id":id},productBacklog)
+        .then(obj => res.status(200).json({
+            msg: "Se actualizo el ProductBacklog",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo actualizar el ProductBacklog",
+            obj: ex
+        }));
 }
 
 function destroy(req, res, next) {

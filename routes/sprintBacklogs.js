@@ -6,7 +6,7 @@ const controller = require('../controller/sprintBacklogs');
 router.post('/', controller.create);
 
 /* GET sprintBacklogs listing. */
-router.get('/', controller.list);
+router.get('/:page?', controller.list);
 
 /* GET sprintBacklog by id. */
 router.get('/:id', controller.index);

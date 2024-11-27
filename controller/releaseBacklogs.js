@@ -49,10 +49,44 @@ function index(req, res, next) {
 }
 
 function replace(req, res, next) {
-    
+    const id = req.params.id;
+    let name = req.body.name ? req.body.name: "";
+    let description = req.body.description ? req.body.description: "";
+    let project = req.body.project ? req.body.project: "";
+
+    let releaseBacklog = new Object({
+        _name: name, _description: description, _project: project
+    });
+
+    ReleaseBacklog.findOneAndUpdate({"_id":id},releaseBacklog)
+        .then(obj => res.status(200).json({
+            msg: "Se reemplazo el ReleaseBacklog",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo reemplazar el ReleaseBacklog",
+            obj: ex
+        }));
 }
 
 function update(req, res, next) {
+    const id = req.params.id;
+    let name = req.body.name;
+    let description = req.body.description;
+    let project = req.body.project;
+
+    let releaseBacklog = new Object();
+    if(name) releaseBacklog._name = name;
+    if(description) releaseBacklog._description = description;
+    if(project) releaseBacklog._project = project;
+
+    ReleaseBacklog.findOneAndUpdate({"_id":id},releaseBacklog)
+        .then(obj => res.status(200).json({
+            msg: "Se actualizo el ReleaseBacklog",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo actualizar el ReleaseBacklog",
+            obj: ex
+        }));
 }
 
 function destroy(req, res, next) {

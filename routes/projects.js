@@ -6,7 +6,7 @@ const controller = require('../controller/projects');
 router.post('/', controller.create);
 
 /* GET projects listing. */
-router.get('/', controller.list);
+router.get('/:page?', controller.list);
 
 /* GET project by id. */
 router.get('/:id', controller.index);

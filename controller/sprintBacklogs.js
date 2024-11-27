@@ -49,11 +49,44 @@ function index(req, res, next) {
 }
 
 function replace(req, res, next) {
-    
+    const id = req.params.id;
+    let name = req.body.name ? req.body.name: "";
+    let description = req.body.description ? req.body.description: "";
+    let sprint = req.body.sprint ? req.body.sprint: "";
+
+    let sprintBacklog = new Object({
+        _name: name, _description: description, _sprint: sprint
+    });
+
+    SprintBacklog.findOneAndUpdate({"_id":id},sprintBacklog)
+        .then(obj => res.status(200).json({
+            msg: "Se reemplazo el SprintBacklog",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo reemplazar el SprintBacklog",
+            obj: ex
+        }));
 }
 
 function update(req, res, next) {
-    
+    const id = req.params.id;
+    let name = req.body.name;
+    let description = req.body.description;
+    let sprint = req.body.sprint;
+
+    let sprintBacklog = new Object();
+    if(name) sprintBacklog._name = name;
+    if(description) sprintBacklog._description = description;
+    if(sprint) sprintBacklog._sprint = sprint;
+
+    SprintBacklog.findOneAndUpdate({"_id":id},sprintBacklog)
+        .then(obj => res.status(200).json({
+            msg: "Se actualizo el SprintBacklog",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo actualizar el SprintBacklog",
+            obj: ex
+        }));
 }
 
 function destroy(req, res, next) {

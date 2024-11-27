@@ -47,11 +47,41 @@ function index(req, res, next) {
 }
 
 function replace(req, res, next) {
-    
+    const id = req.params.id;
+    let productBacklog = req.body.productBacklog ? req.body.productBacklog: "";
+    let lastName = req.body.lastName ? req.body.lastName: "";
+
+    let board = new Object({
+        _productBacklog: productBacklog, _lastName: lastName
+    })
+
+    Board.findOneAndUpdate({"_id":id}, board)
+    .then(obj => res.status(200).json({
+        msg: "Se reemplazo el board",
+        obj: obj
+    })).catch(ex => res.status(500).json({
+        msg: "No se pudo reemplazar el board",
+        obj: ex
+    }));
 }
 
 function update(req, res, next) {
-    
+    const id = req.params.id;
+    let productBacklog = req.body.productBacklog;
+    let lastName = req.body.lastName;
+
+    let board = new Object();
+    if(productBacklog) board._productBacklog = productBacklog;
+    if(lastName) board._lastName = lastName;
+
+    Board.findOneAndUpdate({"_id":id},board)
+        .then(obj => res.status(200).json({
+            msg: "Se actualizo el board",
+            obj: obj
+        })).catch(ex => res.status(500).json({
+            msg: "No se pudo actualizar el board",
+            obj: ex
+        }));
 }
 
 function destroy(req, res, next) {
