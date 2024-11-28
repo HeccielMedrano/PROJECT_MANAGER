@@ -1,19 +1,10 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const schema = mongoose.Schema({
-    _name: String,
-    _sprintsBacklogs: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'SprintBacklog'
-        }
-    ],
-    _stories: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Card'
-        }
-    ]
+    _name: String, // Ejemplo: "myApp-version 1.0"
+    _sprintsBacklogs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SprintBacklog' }],
+    _stories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Card' }]
 });
 
 class ReleaseBacklog {
@@ -27,28 +18,27 @@ class ReleaseBacklog {
         return this._name;
     }
 
-    set name(value) {
-        this._name = value;
+    set name(v) {
+        this._name = v;
     }
 
     get sprintsBacklogs() {
         return this._sprintsBacklogs;
     }
 
-    set sprintsBacklogs(value) {
-        this._sprintsBacklogs = value;
+    set sprintsBacklogs(v) {
+        this._sprintsBacklogs = v;
     }
 
     get stories() {
         return this._stories;
     }
 
-    set stories(value) {
-        this._stories = value;
+    set stories(v) {
+        this._stories = v;
     }
-
 }
 
 schema.loadClass(ReleaseBacklog);
-
+schema.plugin(mongoosePaginate);
 module.exports = mongoose.model('ReleaseBacklog', schema);

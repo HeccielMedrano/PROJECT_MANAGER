@@ -1,4 +1,6 @@
 {
-    "login.fail":"Usuario y/o contrasena incorrectos",
-    "login.ok": "Sesion iniciada correctamente"
+	"login.fail": "Usuario y/o contrasena incorrectos",
+	"login.ok": "Sesion iniciada correctamente",
+	"enlistUser.ok": "enlistUser.ok",
+	"createtUser.ok": "createtUser.ok"
 }

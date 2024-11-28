@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const schema = mongoose.Schema({
     _name: String,
-    _tasks: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Card'
-        }
-    ]
+    _tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Card' }]
 });
 
 class Column {
@@ -20,20 +16,19 @@ class Column {
         return this._name;
     }
 
-    set name(value) {
-        this._name = value;
+    set name(v) {
+        this._name = v;
     }
 
     get tasks() {
         return this._tasks;
     }
 
-    set tasks(value) {
-        this._tasks = value;
+    set tasks(v) {
+        this._tasks = v;
     }
-
 }
 
 schema.loadClass(Column);
-
+schema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Column', schema);

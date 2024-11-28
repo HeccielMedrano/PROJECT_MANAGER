@@ -1,29 +1,13 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const schema = mongoose.Schema({
     _name: String,
-    _releaseBacklog: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'ReleaseBacklog'
-    },
-    _toDoColumn: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Column'
-    },
-    _doingColumn: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Column'
-    },
-    _doneColumn: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Column'
-    },
-    _columns: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Column'
-        }
-    ]
+    _releaseBacklog: { type: mongoose.Schema.Types.ObjectId, ref: 'ReleaseBacklog' },
+    _toDoColumn: { type: mongoose.Schema.Types.ObjectId, ref: 'Column' },
+    _doingColumn: { type: mongoose.Schema.Types.ObjectId, ref: 'Column' },
+    _doneColumn: { type: mongoose.Schema.Types.ObjectId, ref: 'Column' },
+    _columns: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Column' }]
 });
 
 class SprintBacklog {
@@ -40,52 +24,51 @@ class SprintBacklog {
         return this._name;
     }
 
-    set name(value) {
-        this._name = value;
+    set name(v) {
+        this._name = v;
     }
 
     get releaseBacklog() {
         return this._releaseBacklog;
     }
 
-    set releaseBacklog(value) {
-        this._releaseBacklog = value;
+    set releaseBacklog(v) {
+        this._releaseBacklog = v;
     }
 
     get toDoColumn() {
         return this._toDoColumn;
     }
 
-    set toDoColumn(value) {
-        this._toDoColumn = value;
+    set toDoColumn(v) {
+        this._toDoColumn = v;
     }
 
     get doingColumn() {
         return this._doingColumn;
     }
 
-    set doingColumn(value) {
-        this._doingColumn = value;
+    set doingColumn(v) {
+        this._doingColumn = v;
     }
 
     get doneColumn() {
         return this._doneColumn;
     }
 
-    set doneColumn(value) {
-        this._doneColumn = value;
+    set doneColumn(v) {
+        this._doneColumn = v;
     }
 
     get columns() {
         return this._columns;
     }
 
-    set columns(value) {
-        this._columns = value;
+    set columns(v) {
+        this._columns = v;
     }
-
 }
 
 schema.loadClass(SprintBacklog);
-
+schema.plugin(mongoosePaginate);
 module.exports = mongoose.model('SprintBacklog', schema);

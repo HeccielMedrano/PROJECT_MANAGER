@@ -1,23 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/projects');
+const controller = require('../controllers/projects');
 
 /* POST create project. */
-router.post('/', controller.create);
+router.post('/',controller.create);
+
+/* GET project where id is. */
+router.get('/:id',controller.index);
 
 /* GET projects listing. */
-router.get('/:page?', controller.list);
+router.get('/:page?',controller.list);
 
-/* GET project by id. */
-router.get('/:id', controller.index);
+/* PUT replace specific project */
+router.put('/:id',controller.replace);
 
-/* PUT replace project by id. */
-router.put('/:id', controller.replace);
+/* PATCH update specific project */
+router.patch('/:id',controller.update);
 
-/* PATCH update project by id. */
-router.patch('/:id', controller.update);
-
-/* DELETE project by id. */
-router.delete('/:id', controller.destroy);
+/* DELETE delete specific project */
+router.delete('/:id',controller.destroy);
 
 module.exports = router;

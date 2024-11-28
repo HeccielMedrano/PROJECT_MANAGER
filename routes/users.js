@@ -1,23 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/users');
+const controller = require('../controllers/users');
+const { roleMiddleware } = require('../middleware/roleMiddleware');
+const { authenticateToken } = require('../middleware/authentication');
 
-/* POST create user. */
-router.post('/', controller.create);
+/* POST create user - only SCRUM_MASTER can create users. */
+router.post('/', roleMiddleware('manageUsers'), controller.create);
 
-/* GET users listing. */
-router.get('/', controller.list);
+/* GET users listing - PRODUCT_OWNER and SCRUM_MASTER can view users. */
+router.get('/', roleMiddleware('viewUsers'), controller.list);
 
-/* GET user by id. */
-router.get('/:id', controller.index);
+/* GET user by id - PRODUCT_OWNER and SCRUM_MASTER can view users. */
+router.get('/:id', roleMiddleware('viewUsers'), controller.index);
 
-/* PUT replace user by id. */
-router.put('/:id', controller.replace);
+/* PUT replace user by id - only SCRUM_MASTER replace users. */
+router.put('/:id', roleMiddleware('manageUsers'), controller.replace);
 
-/* PATCH update user by id. */
-router.patch('/:id', controller.update);
+/* PATCH update user by id - only SCRUM_MASTER update users. */
+router.patch('/:id', roleMiddleware('manageUsers'), controller.update);
 
-/* DELETE user by id. */
-router.delete('/:id', controller.destroy);
+/* DELETE user - only SCRUM_MASTER can delete users. */
+router.delete('/:id', roleMiddleware('manageUsers'), controller.destroy);
 
 module.exports = router;
+
+
+
+

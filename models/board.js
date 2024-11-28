@@ -1,22 +1,10 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const schema = mongoose.Schema({
-    _productBacklog: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'ProductBacklog'
-    },
-    _releaseBacklogs: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'ReleaseBacklog'
-        }
-    ],
-    _sprintsBacklogs: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'SprintBacklog'
-        }
-    ]
+    _productBacklog: { type: mongoose.Schema.Types.ObjectId, ref: 'ProductBacklog' },
+    _releaseBacklogs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ReleaseBacklog' }],
+    _sprintsBacklogs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SprintBacklog' }]
 });
 
 class Board {
@@ -30,28 +18,27 @@ class Board {
         return this._productBacklog;
     }
 
-    set productBacklog(value) {
-        this._productBacklog = value;
+    set productBacklog(v) {
+        this._productBacklog = v;
     }
 
     get releaseBacklogs() {
         return this._releaseBacklogs;
     }
 
-    set releaseBacklogs(value) {
-        this._releaseBacklogs = value;
+    set releaseBacklogs(v) {
+        this._releaseBacklogs = v;
     }
 
     get sprintsBacklogs() {
         return this._sprintsBacklogs;
     }
 
-    set sprintsBacklogs(value) {
-        this._sprintsBacklogs = value;
+    set sprintsBacklogs(v) {
+        this._sprintsBacklogs = v;
     }
-
 }
 
 schema.loadClass(Board);
-
+schema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Board', schema);

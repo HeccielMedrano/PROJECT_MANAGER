@@ -1,24 +1,14 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const schema = mongoose.Schema({
     _name: String,
     _requestDate: Date,
     _startDate: Date,
     _description: String,
-    _projectManager: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    _productOwner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    _developmentTeam: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }
-    ]
+    _projectManager: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    _productOwner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    _developmentTeam: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
 class Project {
@@ -36,60 +26,59 @@ class Project {
         return this._name;
     }
 
-    set name(value) {
-        this._name = value;
+    set name(v) {
+        this._name = v;
     }
 
     get requestDate() {
         return this._requestDate;
     }
 
-    set requestDate(value) {
-        this._requestDate = value;
+    set requestDate(v) {
+        this._requestDate = v;
     }
 
     get startDate() {
         return this._startDate;
     }
 
-    set startDate(value) {
-        this._startDate = value;
+    set startDate(v) {
+        this._startDate = v;
     }
 
     get description() {
         return this._description;
     }
 
-    set description(value) {
-        this._description = value;
+    set description(v) {
+        this._description = v;
     }
 
     get projectManager() {
         return this._projectManager;
     }
 
-    set projectManager(value) {
-        this._projectManager = value;
+    set projectManager(v) {
+        this._projectManager = v;
     }
 
     get productOwner() {
         return this._productOwner;
     }
 
-    set productOwner(value) {
-        this._productOwner = value;
+    set productOwner(v) {
+        this._productOwner = v;
     }
 
     get developmentTeam() {
         return this._developmentTeam;
     }
 
-    set developmentTeam(value) {
-        this._developmentTeam = value;
+    set developmentTeam(v) {
+        this._developmentTeam = v;
     }
-
 }
 
 schema.loadClass(Project);
-
+schema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Project', schema);

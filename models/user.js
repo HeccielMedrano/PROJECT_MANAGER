@@ -1,128 +1,67 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const schema = mongoose.Schema({
-    _name: String,
-    _lastName: String,
-    _email: String,
-    _birthDate: Date,
-    _CURP: String,
-    _RFC: String,
+    _name:String,
+    _lastName:String,
+    _email:String,
     _password: String,
     _salt: String,
-    _address: {
-        street: String,
-        number: String,
-        zip: Number,
-        city: String,
-        state: String,
-        country: String
-    },
-    _skills: [
-        {
-            name: String,
-            level: {
-                enum: ['JUNIOR','SENIOR','MASTER']
-            }
-        }
-    ],
     _role: {
-        enum: ['SCRUM_MASTER','PRODUCT_OWNER','DEVELOPER']
+        type: String,
+        enum: ['SCRUM_MASTER', 'PRODUCT_OWNER', 'DEVELOPER'],
+        required: true
     }
-});
+})
 
 class User {
-    constructor(name,lastName,email,birthDate,CURP,RFC,password,salt,address,skills,role) {
-        this._name= name;
-        this._lastName= lastName;
-        this._email=email;
-        this._birthDate= birthDate;
-        this._CURP= CURP;
-        this._RFC= RFC;
-        this._password= password;
+    constructor(name, lastName, email, password, salt){
+        this._name = name;
+        this._lastName = lastName;
+        this._email = email;
+        this._password = password;
         this._salt = salt;
-        this._address= address;
-        this._skills= skills;
         this._role= role;
     }
 
-    get name() {
+    get name(){
         return this._name;
     }
 
-    set name(value) {
-        this._name = value;
+    set name(v){
+        this._name = v;
     }
 
-    get lastName() {
+    get lastName(){
         return this._lastName;
     }
 
-    set lastName(value) {
-        this._lastName = value;
+    set lastName(v){
+        this._lastName = v;
     }
 
-    get email() {
+    get email(){
         return this._email;
     }
 
-    set email(value) {
-        this._email = value;
+    set email(v){
+        this._email = v;
     }
 
-    get birthDate() {
-        return this._birthDate;
-    }
-
-    set birthDate(value) {
-        this._birthDate = value;
-    }
-
-    get CURP() {
-        return this._CURP;
-    }
-
-    set CURP(value) {
-        this._CURP = value;
-    }
-
-    get RFC() {
-        return this._RFC;
-    }
-
-    set RFC(value) {
-        this._RFC = value;
-    }
-
-    get password() {
+    get password(){
         return this._password;
     }
 
-    set password(value) {
-        this._password = value;
+    set password(v){
+        this._password = v;
     }
 
-    get salt() {
+    get salt(){
         return this._salt;
     }
 
-    set password(value) {
-        this._salt = value;
-    }
-
-    get address() {
-        return this._address;
-    }
-
-    set address(value) {
-        this._address = value;
-    }
-
-    get skills() {
-        return this._skills;
-    }
-
-    set skills(value) {
-        this._skills = value;
+    set salt(v){
+        this._salt = v;
     }
 
     get role() {
@@ -133,7 +72,6 @@ class User {
         this._role = value;
     }
 }
-
 schema.loadClass(User);
-
+schema.plugin(mongoosePaginate);
 module.exports = mongoose.model('User', schema);

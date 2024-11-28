@@ -1,23 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/sprintBacklogs');
+const controller = require('../controllers/sprintBacklogs');
 
-/* POST create sprintBacklog. */
-router.post('/', controller.create);
+/* POST create sprint backlog. */
+router.post('/',controller.create);
 
-/* GET sprintBacklogs listing. */
-router.get('/:page?', controller.list);
+/* GET sprint backlog where id is. */
+router.get('/:id',controller.index);
 
-/* GET sprintBacklog by id. */
-router.get('/:id', controller.index);
+/* GET sprint backlogs listing. */
+router.get('/:page?',controller.list);
 
-/* PUT replace sprintBacklog by id. */
-router.put('/:id', controller.replace);
+/* PUT replace specific sprint backlog */
+router.put('/:id',controller.replace);
 
-/* PATCH update sprintBacklog by id. */
-router.patch('/:id', controller.update);
+/* PATCH update specific sprint backlog */
+router.patch('/:id',controller.update);
 
-/* DELETE sprintBacklog by id. */
-router.delete('/:id', controller.destroy);
+/* DELETE delete specific sprint backlog */
+router.delete('/:id',controller.destroy);
 
 module.exports = router;

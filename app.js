@@ -3,49 +3,46 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const mongoose = require('mongoose');
-const log4js = require('log4js');
-const logg = log4js.getLogger("app");
-const config = require('config');
+const mongoose = require("mongoose");
+const config = require("config");
 const i18n = require('i18n');
-const {expressjwt} = require('express-jwt');
+const { expressjwt } = require('express-jwt');
+const { authenticateToken } = require('./middleware/authentication');
 
-logg.level = "info";
-
-logg.debug("Iniciando la app en modo de pruebas.");
-logg.info("Usuario ha iniciado sesion");
-logg.warn("Falta el archivo config de la app");
-logg.error("No se pudo ejecutar la accion");
-logg.fatal("No se pudo iniciar la app.");
 
 const jwtKey = config.get("secret.key");
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const projectsRouter = require('./routes/projects');
+const boardsRouter = require('./routes/boards')
+const cardsRouter = require('./routes/cards');
+const columnsRouter = require('./routes/columns');
 const productBacklogsRouter = require('./routes/productBacklogs');
+const projectsRouter = require('./routes/projects');
 const releaseBacklogsRouter = require('./routes/releaseBacklogs');
-const sprintBacklogsRouter = require('./routes/sprintBacklogs');
-const boardsRouter = require('./routes/boards');
+const sprintBacklogRouter = require('./routes/sprintBacklogs');
 
 const app = express();
 
+// mongodb://<dbUser>?:<dbPass>?@?<url>:<port>/<dbName>
 const url = "mongodb://localhost:27017/proyectsManager";
 mongoose.connect(url);
+
 const db = mongoose.connection;
 
-db.on('open', ()=>{
-  console.log("Conexion a la base de datos establecida correctamente");
-});
+db.on('open', () => {
+  console.log('Conexión a la base de datos establecida correctamente.');
+} );
 
-db.on('error', ()=>{
-  console.log("No se ha podido establecer la conexion a la base de datos");
+db.on('error', () => {
+  console.log('No se a podido establecer la conexón a la base de datos.');
 });
 
 i18n.configure({
-  locales:['es','en'],
+  locals:['es','en'],
   cookie: 'language',
   directory: `${__dirname}/locales`
-});
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,15 +54,43 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(i18n.init);
-//app.use(expressjwt({secret:jwtKey, algorithms:['HS256']}).unless({path:["/login"]}));
+
+app.use(expressjwt({ secret: jwtKey, algorithms: ['HS256'] }).unless({ path: ["/login", "/login/"] }));
+
+// Apply the authenticateToken middleware to secure routes
+app.use(authenticateToken);
+
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+      return res.status(401).json({ msg: 'Invalid token or expired token' });
+  }
+  next(err);
+});
+
+// Debugging Middleware - Logs headers and the decoded user
+app.use((req, res, next) => {
+  console.log("Headers:", req.headers);          // Logs the request headers, especially Authorization
+  //console.log("Decoded User:", req.headers['authorization']?.split(' ')[1]);  
+  console.log("Decoded User:", req.headers['authorization']?.split(' ')[1]);      
+  console.log("Decoded User:", req.user);     
+  next();
+});
+
+/*app.use((req, res, next) => {
+  console.log("Request Object:", req);  // Log the entire req object
+  next();
+});*/
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/projects', projectsRouter);
-app.use('/productBacklogs', productBacklogsRouter);
-app.use('/releaseBacklogs', releaseBacklogsRouter);
-app.use('/sprintBacklogs', sprintBacklogsRouter);
 app.use('/boards', boardsRouter);
+app.use('/cards', cardsRouter);
+app.use('/columns', columnsRouter);
+app.use('/productBacklogs', productBacklogsRouter);
+app.use('/projects', projectsRouter);
+app.use('/releaseBacklogs', releaseBacklogsRouter);
+app.use('/sprintBacklog', sprintBacklogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -73,7 +98,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res) {
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

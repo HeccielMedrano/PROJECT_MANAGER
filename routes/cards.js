@@ -1,23 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/releaseBacklogs');
+const controller = require('../controllers/cards');
 
-/* POST create release backlog. */
+/* POST create card. */
 router.post('/',controller.create);
 
-/* GET release backlog where id is. */
+/* GET card where id is. */
 router.get('/:id',controller.index);
 
-/* GET release backlogs listing. */
+/* GET cards listing. */
 router.get('/:page?',controller.list);
 
-/* PUT replace specific release backlog */
+/* PUT replace specific card */
 router.put('/:id',controller.replace);
 
-/* PATCH update specific release backlog */
+/* PATCH update specific card */
 router.patch('/:id',controller.update);
 
-/* DELETE delete specific release backlog */
+/* DELETE delete specific cards */
 router.delete('/:id',controller.destroy);
 
 module.exports = router;
