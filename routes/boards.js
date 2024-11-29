@@ -1,23 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/boards');
+const { roleMiddleware } = require('../middleware/roleMiddleware');
 
-/* POST create board. */
-router.post('/',controller.create);
+/* POST create project. */
+router.post('/', roleMiddleware('SCRUM_MASTER'), controller.create);
 
-/* GET board where id is. */
-router.get('/:id',controller.index);
+/* GET project where id is. */
+router.get('/:id', roleMiddleware('SCRUM_MASTER'), controller.index);
 
-/* GET boards listing. */
-router.get('/:page?',controller.list);
+/* GET projects listing. */
+router.get('/:page?', roleMiddleware('SCRUM_MASTER'), controller.list);
 
-/* PUT replace specific board */
-router.put('/:id',controller.replace);
+/* PUT replace specific project */
+router.put('/:id', roleMiddleware('SCRUM_MASTER'), controller.replace);
 
-/* PATCH update specific board */
-router.patch('/:id',controller.update);
+/* PATCH update specific project */
+router.patch('/:id', roleMiddleware('SCRUM_MASTER'), controller.update);
 
-/* DELETE delete specific board */
-router.delete('/:id',controller.destroy);
+/* DELETE delete specific project */
+router.delete('/:id', roleMiddleware('SCRUM_MASTER'), controller.destroy);
 
 module.exports = router;
