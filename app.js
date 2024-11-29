@@ -25,7 +25,7 @@ const sprintBacklogRouter = require('./routes/sprintBacklogs');
 const app = express();
 
 // mongodb://<dbUser>?:<dbPass>?@?<url>:<port>/<dbName>
-const url = "mongodb://localhost:27017/proyectsManager";
+const url = "mongodb://localhost:27017/projectsManager";
 mongoose.connect(url);
 
 const db = mongoose.connection;
@@ -57,15 +57,12 @@ app.use(i18n.init);
 
 app.use(expressjwt({ secret: jwtKey, algorithms: ['HS256'] }).unless({ path: ["/login", "/login/"] }));
 
-// Apply the authenticateToken middleware to secure routes
-app.use(authenticateToken);
-
-app.use((err, req, res, next) => {
+/*app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
       return res.status(401).json({ msg: 'Invalid token or expired token' });
   }
   next(err);
-});
+});*/
 
 // Debugging Middleware - Logs headers and the decoded user
 app.use((req, res, next) => {
@@ -80,6 +77,9 @@ app.use((req, res, next) => {
   console.log("Request Object:", req);  // Log the entire req object
   next();
 });*/
+
+// Apply the authenticateToken middleware to secure routes
+app.use(authenticateToken);
 
 
 app.use('/', indexRouter);

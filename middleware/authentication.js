@@ -1,10 +1,19 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
+
 const jwtKey = config.get("secret.key");
 
-// JWT Authentication Middleware
 function authenticateToken(req, res, next) {
+
+  const bypassPaths = ["/login", "/login/"];
+
+  // Skip authentication for these paths
+  if (bypassPaths.includes(req.path)) {
+    return next();
+  }
+
+  // Token extraction and validation
   const token = req.headers['authorization']?.split(' ')[1]; // Extract token from 'Authorization' header
   if (!token) {
     return res.status(401).json({ msg: 'Unauthorized: No token provided.' });
