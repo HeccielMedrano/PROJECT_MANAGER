@@ -21,6 +21,28 @@ Para testear el proyecto puedes usar el siguiente comando
 npm start
 ```
 
+### Usuario
+
+El usuario que se proporciona para poder hacer utilización de tokens a través del login de la aplicación es:
+
+* name : Arturo
+* lastName : Castillo
+* email : r@gmail.com
+* password : 1234
+* role : SCRUM_MASTER
+
+
+## Pruebas
+
+Para poder realizar pruebas sobre el proyecto, se utiliza el comando
+
+```
+npm test
+```
+
+No hace falta preocuparse de temas de tokens, se realizan automáticamente.
+
+
 ### Instalación
 
 #### Mediante SSH
