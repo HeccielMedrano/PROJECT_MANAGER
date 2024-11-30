@@ -25,7 +25,7 @@ const sprintBacklogRouter = require('./routes/sprintBacklogs');
 const app = express();
 
 // mongodb://<dbUser>?:<dbPass>?@?<url>:<port>/<dbName>
-const url = "mongodb://localhost:27017/projectsManager";
+const url = "mongodb+srv://a361345:MQHIr0yo4TuIEJkV@clusterprojectmanager.b55u7.mongodb.net/?retryWrites=true&w=majority&appName=ClusterProjectManager";
 mongoose.connect(url);
 
 const db = mongoose.connection;
